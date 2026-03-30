@@ -7,37 +7,39 @@ Students:
 - Anusri Sharma – PES1UG25CS803
 
 ## Project Overview
-This project implements a distributed log aggregation system using UDP socket programming for fast, connectionless communication suitable for real-time log transmission. Multiple clients generate log messages and send them over the network to a centralized aggregation server. The server receives logs, timestamps them upon arrival and orders them accordingly, and processes them in real time while supporting multiple concurrent clients, ensuring scalability.
+This project implements a distributed log aggregation system using UDP socket programming for fast, connectionless communication suitable for real-time log transmission. Multiple clients execute system commands (such as ls, pwd, whoami, date, uname) and send their outputs as log messages over the network to a centralized aggregation server. The server receives logs, timestamps them upon arrival, orders them accordingly, and processes them in real time while supporting multiple concurrent clients, ensuring scalability.
 
-The system evaluates performance using throughput measurement (logs per second) and incorporates basic optimization through backpressure handling by limiting the log queue size to prevent memory overload. It also considers failure scenarios inherent to UDP communication, such as packet loss, out-of-order delivery, and potential decryption errors. While the design prioritizes low latency and simplicity, it provides a foundation for further enhancements in reliability and efficiency.
+The system evaluates performance using throughput measurement (logs per second) and incorporates basic optimization through backpressure handling by limiting the log queue size to prevent memory overload. It also considers failure scenarios inherent to UDP communication, such as packet loss, out-of-order delivery, and potential decryption errors. Logs are derived from actual system command outputs, making the system more realistic compared to simulated logging approaches.
 
 ## Features
-- UDP Socket Communication – Low-level socket implementation
-- Connectionless Communication – No handshake required between client and server
+- UDP Socket Communication – Low-level socket implementation  
+- Connectionless Communication – No handshake required between client and server  
 - Cryptographic Security – Logs are encrypted at the client and decrypted at the server using symmetric key cryptography  
 - Real-Time Log Streaming – Clients continuously send log data  
 - Multi-Client Support – Multiple clients can send logs simultaneously  
 - Time Ordering – Logs are ordered using timestamps generated at the server upon reception  
 - Throughput Evaluation – Server measures logs received per second  
-- Backpressure Handling – Server queue limit prevents overload
+- Backpressure Handling – Server queue limit prevents overload  
 - Basic Failure Handling – Decryption errors are handled and timeout is used to avoid blocking
+- Real System Logs - Logs are generated from actual command outputs instead of artificial messages
+- Log Filtering - Server categorizes logs based on command type or content  
 
 ## System Architecture
 <p align="center">
   <img src="Architecture/Architecture.png" width="50%">
 </p>
 
-Clients generate logs and send them to the server through the network using UDP sockets.  
+Clients execute system commands and send their outputs as logs to the server through the network using UDP sockets.  
 The aggregation server receives and processes logs in real time.
 
 Logs can be encrypted at the client and decrypted at the server to ensure secure transmission.
 
 ## Communication Model
 Client sends log message:  
-`timestamp | client_id | log_level | message`  
+`timestamp | client_id | command | output`  
 
 Example:  
-```1717578803.7720332 | WINDOWS_CLIENT | INFO | Log message 74```  
+```1717578803.7720332 | WINDOWS_CLIENT | ls | file1.txt file2.txt```  
 
 Each log message is sent as a UDP datagram from the client to the server without establishing a connection, and without any guarantee of delivery or ordering.  
 Server receives and processes logs while maintaining time ordering based on timestamps generated at the server upon reception.  
@@ -131,19 +133,19 @@ This ensures stable performance and prevents unbounded memory growth during high
 ## Sample Output
 Example server output:
 ```
-[('10.30.203.57', 56672)] WINDOWS_CLIENT | INFO | Log message 74
-[('10.30.203.57', 56672)] WINDOWS_CLIENT | INFO | Log message 76
+[('10.x.x.x', 56672)] WINDOWS_CLIENT | ls | file1.txt file2.txt
+[('10.x.x.x', 56672)] WINDOWS_CLIENT | pwd | /home/user
 Throughput: 25 logs/sec
 ```
 
-The output displays the client IP, port, log details, and real-time throughput, with logs ordered based on timestamps generated at the server upon reception.  
+The output displays the client IP, port, command executed, corresponding output, and real-time throughput.  
 Each entry represents a log received as a UDP datagram from a client.  
 Logs are decrypted at the server before processing and display.
 
 ## Technologies Used
 Language: Python  
 Networking: UDP Sockets  
-Libraries: socket, time, random, cryptography  
+Libraries: socket, time, random, subprocess, cryptography  
 Cryptography: Fernet (symmetric encryption)  
 Operating Systems: Mac (Server), Windows/Ubuntu (Clients)
 
