@@ -171,7 +171,7 @@ Distributed-Log-Aggregation-System/
 Secure communication using DTLS (Datagram Transport Layer Security) for UDP-based encrypted communication  
 Key management and secure key exchange mechanisms  
 Log storage in database  
-Advanced log filtering and search capabilities (based on keywords, severity levels, and patterns)  
+Advanced log filtering and search capabilities using indexing and pattern matching  
 Web dashboard for monitoring  
 Visualization of log statistics  
 Reliable delivery mechanisms (acknowledgment and retransmission)  
