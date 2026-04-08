@@ -175,8 +175,7 @@ Distributed-Log-Aggregation-System/
 ├── Client/
 │   └── Client.py
 ├── Output/
-│   ├── Client_1.jpeg
-│   ├── Client_2.jpeg
+│   ├── Client.png
 │   └── Server.png
 ├── Server/
 │   └── Server.py
