@@ -196,8 +196,3 @@ Enhanced failure handling and retry mechanisms for improved reliability
 
 ## License
 This project is created for educational purposes as part of a Computer Networks mini project.
-
-## Acknowledgments
-Course: Computer Networks  
-Institution: PES University  
-Project Type: Socket Programming Mini Project
