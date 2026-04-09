@@ -1,7 +1,7 @@
 # Distributed-Log-Aggregation-System
 Course: Computer Networks – Socket Programming Mini Project
 
-Students:
+Authors:
 - Kundan V – PES1UG24CS243
 - Kuncha Pranay Krishna – PES1UG24CS242
 - Anusri Sharma – PES1UG25CS803
