@@ -128,7 +128,7 @@ Ensure the server is running before starting any clients.
 
 Start the Client:
 ```bash
-python3 client.py
+python3 Client.py
 ```
 Clients will start sending log messages continuously to the server.  
 Each client generates a unique client ID based on the operating system and a random identifier.
@@ -138,9 +138,9 @@ Run multiple clients on different systems or multiple terminals on the same syst
 
 Example:
 ```bash
-python3 client.py
-python3 client.py
-python3 client.py
+python3 Client.py
+python3 Client.py
+python3 Client.py
 ```
 The server will receive, decrypt, order, and process logs from all clients simultaneously in real time.
 
