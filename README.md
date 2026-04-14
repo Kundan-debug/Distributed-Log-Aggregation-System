@@ -6,10 +6,14 @@ Authors:
 - Kuncha Pranay Krishna – PES1UG24CS242
 - Anusri Sharma – PES1UG25CS803
 
+---
+
 ## Project Overview
 This project implements a distributed log aggregation system using UDP socket programming for fast, connectionless communication suitable for real-time log transmission. Multiple clients execute system commands (such as ls, pwd, whoami, date, uname on Unix-based systems and dir, cd, whoami, date, ver on Windows) and send their outputs as encrypted log messages over the network to a centralized aggregation server. The server decrypts the logs, timestamps them upon arrival, orders them accordingly, and processes them in real time while supporting multiple concurrent clients, ensuring scalability.
 
 The system evaluates performance using throughput measurement (logs per second) and incorporates basic optimization through backpressure handling by limiting the log queue size to prevent memory overload. It also considers failure scenarios inherent to UDP communication, such as packet loss, out-of-order delivery, and potential decryption errors. Basic log filtering is implemented at the server to categorize logs based on command type. Logs are derived from actual system command outputs, making the system more realistic compared to simulated logging approaches.
+
+---
 
 ## Features
 - UDP Socket Communication – Low-level socket implementation  
@@ -24,6 +28,8 @@ The system evaluates performance using throughput measurement (logs per second) 
 - Real System Logs – Logs are generated from actual command outputs instead of artificial messages  
 - Log Filtering – Server categorizes logs based on command type or content  
 
+---
+
 ## System Architecture
 <p align="center">
   <img src="Architecture/Architecture.png" width="50%">
@@ -35,6 +41,8 @@ The aggregation server receives, decrypts, and processes logs in real time.
 
 Logs are encrypted at the client and decrypted at the server using symmetric key cryptography (Fernet) to ensure secure transmission.
 
+---
+
 ## Communication Model
 Client sends log message:  
 `timestamp | client_id | command | output`  
@@ -45,6 +53,8 @@ Example:
 Each log message is sent as a UDP datagram from the client to the server without establishing a connection, and without any guarantee of delivery or ordering.  
 Server receives, decrypts, and processes logs while maintaining time ordering based on timestamps generated at the server upon reception.  
 No retransmission or acknowledgment mechanism is implemented, making the system lightweight but unreliable.
+
+---
 
 ## Installation & Setup
 Prerequisites:
@@ -98,6 +108,8 @@ SERVER_IP = "YOUR_SERVER_IP"
 ```
 Ensure the client uses the correct server IP address; otherwise, logs will not be received.
 
+---
+
 ## Usage
 Start the Server:
 ```bash
@@ -132,12 +144,16 @@ python3 client.py
 ```
 The server will receive, decrypt, order, and process logs from all clients simultaneously in real time.
 
+---
+
 ## Performance Evaluation
 The server measures performance using throughput and drop rate as:  
 ```Throughput: XX logs/sec | Dropped: YY```  
 
 Throughput indicates how many logs the server can process per second under continuous load, while the dropped log count reflects how many logs were discarded due to backpressure when the server is overloaded.  
 These metrics are used to evaluate system performance, scalability, and behavior under high traffic conditions.
+
+---
 
 ## Backpressure Handling
 To prevent memory overload:
@@ -146,6 +162,8 @@ To prevent memory overload:
 - The number of dropped logs is tracked for performance analysis
 
 This ensures stable performance and prevents unbounded memory growth during high log traffic.
+
+---
 
 ## Sample Output
 Example server output:
@@ -159,12 +177,16 @@ The output displays the client IP, port, command executed, corresponding output,
 Each entry represents a log received as a UDP datagram from a client.  
 Logs are decrypted at the server before processing and display, and are categorized based on command type or content.
 
+---
+
 ## Technologies Used
 Language: Python  
 Networking: UDP Sockets  
 Libraries: socket, time, random, subprocess, platform, cryptography  
 Cryptography: Fernet (symmetric key encryption)  
 Operating Systems: Cross-platform (Windows, Linux, macOS)
+
+---
 
 ## Project Structure
 ```
@@ -183,6 +205,8 @@ Distributed-Log-Aggregation-System/
 └── README.md
 ```
 
+---
+
 ## Future Improvements
 Secure communication using DTLS (Datagram Transport Layer Security) for secure and authenticated UDP communication  
 Key management and secure key exchange mechanisms  
@@ -193,6 +217,8 @@ Visualization of log statistics
 Reliable delivery mechanisms (acknowledgment and retransmission)  
 Load balancing for handling high-volume log traffic  
 Enhanced failure handling and retry mechanisms for improved reliability
+
+---
 
 ## License
 This project is created for educational purposes as part of a Computer Networks mini project.
